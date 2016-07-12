@@ -27,15 +27,22 @@ public class RadialButton : MonoBehaviour {
     }
 
     public void spawnCharacter() {
+        if (!tile.canInsert())
+            return;
         GameObject newPiece = Instantiate(piece);
         newPiece.transform.SetParent(player.transform);
-        newPiece.GetComponent<Piece>().location = tile;
-        newPiece.transform.position = tile.transform.position + new Vector3(0f, piece.transform.localScale.y/2 + piece.transform.localScale.y * tile.numberPieces, 0f);
-        if (player.player)
+        Piece pieceScript = newPiece.GetComponent<Piece>();
+        pieceScript.location = tile;
+        pieceScript.tier = tile.addPiece(newPiece);
+        newPiece.transform.position = tile.transform.position + new Vector3(0f, piece.transform.localScale.y/2 + piece.transform.localScale.y * (pieceScript.tier - 1), 0f);
+        if (player.player) {
             newPiece.tag = "White Piece";
+            newPiece.transform.Rotate(new Vector3(0, 180, 0));
+        }
         else
             newPiece.tag = "Black Piece";
-        tile.numberPieces++;
+        player.frontPieces[piece.GetComponent<Piece>().id].count--;
+        tile.transform.gameObject.GetComponentInParent<Board>().endTurn();
         closeMenu();
     }
 

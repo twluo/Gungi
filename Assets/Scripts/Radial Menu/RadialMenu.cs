@@ -8,6 +8,8 @@ public class RadialMenu : MonoBehaviour {
 
     public void openInitialPhaseMenu(Player player, Tile tile) {    
         for (int i = 0; i < player.frontPieces.Length; i++) {
+            if (player.frontPieces[i].count == 0)
+                continue;
             RadialButton newButton = Instantiate(pieceButton);
             newButton.transform.SetParent(transform, false);
             float theta = (2 * Mathf.PI / player.frontPieces.Length) * i;

@@ -12,6 +12,7 @@ public class Piece : MonoBehaviour {
     public string frontName;
     public string backName;
     public bool frontBack;
+    public int tier;
 
 	// Use this for initialization
 	void Start () {

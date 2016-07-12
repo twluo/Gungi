@@ -59,7 +59,7 @@ public class Board : MonoBehaviour {
         menuFlag = false;
     }
 
-    void endTurn() {
+    public void endTurn() {
         player = !player;
         whiteCamera.gameObject.SetActive(!whiteCamera.gameObject.activeSelf);
         blackCamera.gameObject.SetActive(!blackCamera.gameObject.activeSelf);
