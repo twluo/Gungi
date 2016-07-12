@@ -6,7 +6,7 @@ public class RadialMenu : MonoBehaviour {
     public RadialButton pieceButton;
     public RadialButton backButton;
 
-    public void openInitialPhaseMenu(Player player, Tile tile) {
+    public void openInitialPhaseMenu(Player player, Tile tile) {    
         for (int i = 0; i < player.frontPieces.Length; i++) {
             RadialButton newButton = Instantiate(pieceButton);
             newButton.transform.SetParent(transform, false);
@@ -14,7 +14,7 @@ public class RadialMenu : MonoBehaviour {
             float x = Mathf.Sin(theta);
             float y = Mathf.Cos(theta);
             newButton.transform.localPosition = new Vector3(x, y, 0f) * 100;
-            newButton.setData(player, player.frontPieces[0].piece, tile);
+            newButton.setData(player, player.frontPieces[i].piece, tile);
         }
         RadialButton newBackButton = Instantiate(backButton);
         newBackButton.transform.SetParent(transform, false);

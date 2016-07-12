@@ -1,30 +1,30 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &110672
+--- !u!1 &167400
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 469750}
-  - 33: {fileID: 3381218}
-  - 65: {fileID: 6562120}
-  - 23: {fileID: 2349698}
-  - 114: {fileID: 11485186}
+  - 4: {fileID: 449054}
+  - 33: {fileID: 3326006}
+  - 65: {fileID: 6501092}
+  - 23: {fileID: 2354000}
+  - 114: {fileID: 11496862}
   m_Layer: 0
-  m_Name: Commander
+  m_Name: Prodigy_Phoenix
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &469750
+--- !u!4 &449054
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 110672}
+  m_GameObject: {fileID: 167400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
@@ -32,17 +32,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &2349698
+--- !u!23 &2354000
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 110672}
+  m_GameObject: {fileID: 167400}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 46d701a0114316c47b77c5e92fbab1e1, type: 2}
+  - {fileID: 2100000, guid: 6aeba9aabc98ef64884fda64360a8098, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -58,42 +58,42 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &3381218
+--- !u!33 &3326006
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 110672}
+  m_GameObject: {fileID: 167400}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &6562120
+--- !u!65 &6501092
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 110672}
+  m_GameObject: {fileID: 167400}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11485186
+--- !u!114 &11496862
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 110672}
+  m_GameObject: {fileID: 167400}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b2f6632b62bd974caf61393fb33e181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   location: {fileID: 0}
-  frontSprite: {fileID: 21300000, guid: ed86e9eb0602fc9428e3d6a638554acf, type: 3}
+  frontSprite: {fileID: 21300000, guid: 7c4ca6eba4534e94589720c7f3276bde, type: 3}
   backSprite: {fileID: 0}
-  id: 0
-  frontName: Commander
-  backName: 
+  id: 7
+  frontName: Prodigy
+  backName: Phoenix
   frontBack: 0
 --- !u!1001 &100100000
 Prefab:
@@ -104,5 +104,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 110672}
+  m_RootGameObject: {fileID: 167400}
   m_IsPrefabParent: 1

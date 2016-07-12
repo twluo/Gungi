@@ -34,14 +34,20 @@ public class Board : MonoBehaviour {
             if (Physics.Raycast(ray, out hit, 150.0f) && !menuFlag) {
                 GameObject hitObj = hit.transform.gameObject;
                 if (initialPhase) {
+                    Debug.Log(hitObj.tag);
+                    Tile tile;
+                    if (hitObj.tag.Contains("Territory"))
+                        tile = hitObj.transform.GetComponent<Tile>();
+                    else
+                        tile = hitObj.transform.GetComponent<Piece>().getTile();
                     if (hitObj.tag.Contains("White") && player == WHITE) {
-                        hit.transform.gameObject.GetComponent<Tile>().printName();
-                        RadialMenuSpawner.getInstance().openInitialPhaseMenu(whitePlayer, hitObj.GetComponent<Tile>());
+                        tile.printName();
+                        RadialMenuSpawner.getInstance().openInitialPhaseMenu(whitePlayer, tile);
                         menuFlag = true;
                     }
                     else if (hitObj.tag.Contains("Black") && player == BLACK) {
-                        hit.transform.gameObject.GetComponent<Tile>().printName();
-                        RadialMenuSpawner.getInstance().openInitialPhaseMenu(blackPlayer, hitObj.GetComponent<Tile>());
+                        tile.printName();
+                        RadialMenuSpawner.getInstance().openInitialPhaseMenu(blackPlayer, tile);
                         menuFlag = true;
                     }
                 }

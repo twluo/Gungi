@@ -112,28 +112,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89bd9872f92aac48ad953cf2f290aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 0
+  player: 1
   frontPieces:
   - piece: {fileID: 110672, guid: c1e4f5801bb2e1a4cadf5a4b48727938, type: 2}
     count: 1
-  - piece: {fileID: 0}
-    count: 0
-  - piece: {fileID: 0}
-    count: 0
-  - piece: {fileID: 0}
-    count: 0
-  - piece: {fileID: 0}
-    count: 0
-  - piece: {fileID: 0}
-    count: 0
-  - piece: {fileID: 0}
-    count: 0
-  - piece: {fileID: 0}
-    count: 0
-  - piece: {fileID: 0}
-    count: 0
-  - piece: {fileID: 0}
-    count: 0
+  - piece: {fileID: 154436, guid: c1eff621810dc9b418788a7b66599b01, type: 2}
+    count: 2
+  - piece: {fileID: 105634, guid: 7a54e97734b24ca499bae6da81234b23, type: 2}
+    count: 2
+  - piece: {fileID: 176790, guid: 5627946fc2855c149a5bf09379289857, type: 2}
+    count: 3
+  - piece: {fileID: 115048, guid: 14f48a1e45e0a644a92e4e0bf70dd4bb, type: 2}
+    count: 1
+  - piece: {fileID: 105466, guid: 2a0e26699d494bc49873df1e20545340, type: 2}
+    count: 1
+  - piece: {fileID: 179608, guid: 2e1e6384a79f47e42a26ee810c2c9409, type: 2}
+    count: 1
+  - piece: {fileID: 167400, guid: 1b7360bd0929c5042907adc5cc7695c2, type: 2}
+    count: 1
+  - piece: {fileID: 161856, guid: 008518c21b9f8cd41b53008f98ad9ca4, type: 2}
+    count: 2
+  - piece: {fileID: 103616, guid: cb01f1be130917d4286ffe82acabd25c, type: 2}
+    count: 7
+  - piece: {fileID: 176360, guid: 544c619b4836bb740862dcfafe3ea24c, type: 2}
+    count: 1
+  - piece: {fileID: 183476, guid: 05e2823d2ee7e02488f7b0678b21cada, type: 2}
+    count: 1
   backPieces:
   - piece: {fileID: 0}
     count: 0

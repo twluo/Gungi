@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconBackground: {fileID: 11461024}
-  icon: {fileID: 0}
+  icon: {fileID: 11430708}
 --- !u!114 &11461024
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -6,9 +6,11 @@ public class Piece : MonoBehaviour {
     public const bool BACK = false;
 
     public Tile location;
-    public Sprite sprite;
+    public Sprite frontSprite;
+    public Sprite backSprite;
     public int id;
-    public string pieceName;
+    public string frontName;
+    public string backName;
     public bool frontBack;
 
 	// Use this for initialization
@@ -21,4 +23,23 @@ public class Piece : MonoBehaviour {
 	
 	}
 
+    public Tile getTile() {
+        return location;
+    }
+
+    public Sprite getSprite() {
+        return (frontBack) ? frontSprite : backSprite;
+    }
+
+    public Sprite getSprite(bool side) {
+        return (side) ? frontSprite : backSprite;
+    }
+
+    public string getName() {
+        return (frontBack) ? frontName : backName;
+    }
+
+    public string getName(bool side) {
+        return (side) ? frontName : backName;
+    }
 }
