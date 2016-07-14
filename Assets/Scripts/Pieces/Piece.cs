@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Piece : MonoBehaviour {
     public const bool FRONT = true;
@@ -13,6 +13,7 @@ public class Piece : MonoBehaviour {
     public string backName;
     public bool frontBack;
     public int tier;
+    public Board board;
 
 	// Use this for initialization
 	void Start () {
@@ -43,4 +44,9 @@ public class Piece : MonoBehaviour {
     public string getName(bool side) {
         return (side) ? frontName : backName;
     }
+
+    public virtual List<GameObject> getAvailableMoves() {
+        return null;
+    }
+
 }

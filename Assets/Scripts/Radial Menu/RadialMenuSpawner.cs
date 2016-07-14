@@ -22,7 +22,6 @@ public class RadialMenuSpawner : MonoBehaviour {
     public void closeMenu() {
         if (currMenu != null)
             Destroy(currMenu.gameObject);
-        Board.closeMenu();
     }
 
     public static RadialMenuSpawner getInstance() {

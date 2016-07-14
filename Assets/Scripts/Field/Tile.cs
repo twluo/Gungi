@@ -16,12 +16,24 @@ public class Tile : MonoBehaviour {
 	void Update () {
 
     }
-    
 
+    //TODO: :)
+    public bool canDrop(bool player) {
+        return canInsert();
+    }
+
+    //TODO: :)
+    public bool canMove(bool player) {
+        return canInsert();
+    }
     public void printName() {
         Debug.Log(x + "-" + y);
     }
    
+    //TODO: FIX THIS
+    public int movePiece(GameObject piece) {
+        return addPiece(piece);
+    }
     public int addPiece(GameObject piece) {
         if (Tier1 == null) {
             Tier1 = piece;
@@ -55,4 +67,16 @@ public class Tile : MonoBehaviour {
         return Tier1 != null;
     }
 
+    public Piece getPiece(string player) {
+        if (Tier3 != null && Tier3.tag.Contains(player)) {
+            return Tier3.GetComponent<Piece>();
+        }
+        else if (Tier2 != null && Tier2.tag.Contains(player)) {
+            return Tier2.GetComponent<Piece>();
+        }
+        else if (Tier1 != null && Tier1.tag.Contains(player)) {
+            return Tier1.GetComponent<Piece>();
+        }
+        return null;
+    }
 }

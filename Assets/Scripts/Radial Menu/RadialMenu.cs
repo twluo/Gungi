@@ -20,6 +20,7 @@ public class RadialMenu : MonoBehaviour {
         }
         RadialButton newBackButton = Instantiate(backButton);
         newBackButton.transform.SetParent(transform, false);
+        newBackButton.setBoard(tile.GetComponentInParent<Board>());
 
     }
     void Update() {

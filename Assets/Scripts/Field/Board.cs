@@ -1,71 +1,147 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Board : MonoBehaviour {
 
     private const bool BLACK = false;
     private const bool WHITE = true;
+    private const int INITIALPHASETURNLIMIT = 46;
     public Camera whiteCamera;
     public Camera blackCamera;
     public GameObject tileObject;
     public Player whitePlayer;
     public Player blackPlayer;
     private bool player;
-    private bool initialPhase;
-    private static bool menuFlag;
+    public bool initialPhase;
+    public bool uiHit;
+    public List<GameObject> interactableTiles;
+    private bool populateList;
+    private GameObject selectedPiece;
+    private int turnCount;
+
     // Use this for initialization
     void Start () {
-        menuFlag = false;
+        turnCount = 0;
+        populateList = true;
+        uiHit = false;
         initialPhase = true;
         player = WHITE;
         setUpCamera();
         setUpBoard();
-	}
+        interactableTiles = new List<GameObject>();
+        selectedPiece = null;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            endTurn();
+        for (int i = 0; i < transform.childCount && initialPhase && populateList; i++) {
+            GameObject T = transform.GetChild(i).gameObject;
+            Tile Tscript = T.GetComponent<Tile>();
+            if (T.tag.Contains("White") && player == WHITE && Tscript.canDrop(player)) {
+                interactableTiles.Add(T);
+                T.GetComponent<Renderer>().material.color = Color.magenta;
+            }
+            else if (T.tag.Contains("Black") && player == BLACK && Tscript.canDrop(player)) {
+                interactableTiles.Add(T);
+                T.GetComponent<Renderer>().material.color = Color.magenta;
+            }
         }
-
         if (Input.GetMouseButtonDown(0)) {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 150.0f) && !menuFlag) {
+            if (uiHit) {
+                uiHit = false;
+                return;
+            }
+            if (Physics.Raycast(ray, out hit, 150.0f)) {
+                RadialMenuSpawner.getInstance().closeMenu();
                 GameObject hitObj = hit.transform.gameObject;
                 if (initialPhase) {
-                    Debug.Log(hitObj.tag);
-                    Tile tile;
-                    if (hitObj.tag.Contains("Territory"))
-                        tile = hitObj.transform.GetComponent<Tile>();
-                    else
-                        tile = hitObj.transform.GetComponent<Piece>().getTile();
-                    if (hitObj.tag.Contains("White") && player == WHITE) {
-                        tile.printName();
-                        RadialMenuSpawner.getInstance().openInitialPhaseMenu(whitePlayer, tile);
-                        menuFlag = true;
+                    handlePlacingUnits(hitObj);
+                }
+                else {
+                    Debug.Log("Action Phase " + hitObj.tag);
+                    Piece piece;
+                    GameObject tile;
+                    if (hitObj.tag.Contains("Piece")) {
+                        piece = hitObj.transform.GetComponent<Piece>().location.getPiece(((player) ? "White" : "Black"));
+                        tile = hitObj.transform.GetComponent<Piece>().getTile().gameObject;
                     }
-                    else if (hitObj.tag.Contains("Black") && player == BLACK) {
-                        tile.printName();
-                        RadialMenuSpawner.getInstance().openInitialPhaseMenu(blackPlayer, tile);
-                        menuFlag = true;
+                    else {
+                        piece = hitObj.transform.GetComponent<Tile>().getPiece((player) ? "White" : "Black");
+                        tile = hitObj;
                     }
+                    if (interactableTiles.Contains(tile) && selectedPiece != null) {
+                        move(selectedPiece, tile.GetComponent<Tile>());
+                        endTurn();
+                        return;
+                    }
+                    if (piece == null)
+                        return;
+                    selectPiece(piece.gameObject);
+                    Debug.Log("Selected " + ((player) ? "White " : "Black ") + piece.name);
                 }
             }
+            else {
+                RadialMenuSpawner.getInstance().closeMenu();
+            }
         }
+        populateList = false;
     }
 
-    public static void closeMenu() {
-        menuFlag = false;
+    private void move(GameObject piece, Tile target) {
+        Piece pieceScript = piece.GetComponent<Piece>();
+        pieceScript.location.removePiece();
+        pieceScript.location = target;
+        pieceScript.tier = target.addPiece(piece);
+        piece.transform.position = target.transform.position + new Vector3(0f, piece.transform.localScale.y / 2 + piece.transform.localScale.y * (pieceScript.tier - 1), 0f);
+    }
+    private void selectPiece(GameObject piece) {
+        for (int i = 0; i < interactableTiles.Count; i++) {
+            interactableTiles[i].GetComponent<Renderer>().material.color = Color.white;
+        }
+        selectedPiece = piece;
+        interactableTiles = selectedPiece.GetComponent<Piece>().getAvailableMoves();
+        for (int i = 0; i < interactableTiles.Count; i++) {
+            interactableTiles[i].GetComponent<Renderer>().material.color = Color.cyan;
+        }
+    }
+    private void handlePlacingUnits(GameObject hitObj) {
+        Debug.Log("Initial Phase " + hitObj.tag);
+        Tile tile;
+        if (hitObj.tag.Contains("Territory"))
+            tile = hitObj.transform.GetComponent<Tile>();
+        else
+            tile = hitObj.transform.GetComponent<Piece>().getTile();
+        if (hitObj.tag.Contains("White") && player == WHITE) {
+            tile.printName();
+            RadialMenuSpawner.getInstance().openInitialPhaseMenu(whitePlayer, tile);
+        }
+        else if (hitObj.tag.Contains("Black") && player == BLACK) {
+            tile.printName();
+            RadialMenuSpawner.getInstance().openInitialPhaseMenu(blackPlayer, tile);
+        }
     }
 
     public void endTurn() {
         player = !player;
         whiteCamera.gameObject.SetActive(!whiteCamera.gameObject.activeSelf);
         blackCamera.gameObject.SetActive(!blackCamera.gameObject.activeSelf);
+        for (int i = 0; i < interactableTiles.Count; i++) {
+            interactableTiles[i].GetComponent<Renderer>().material.color = Color.white;
+        }
+        interactableTiles.Clear();
+        selectedPiece = null;
+        populateList = true;
+        turnCount++;
+        if (turnCount == INITIALPHASETURNLIMIT)
+            initialPhase = false;
     }
 
-    int convertCoords (int x, int y) {
+    public bool inCheck(int x, int y) {
+        return false;
+    }
+    public int convertCoords (int x, int y) {
         return y * 9 + x;
     }
 
@@ -88,11 +164,9 @@ public class Board : MonoBehaviour {
                 Destroy(tile.GetComponent<MeshCollider>());
                 collider.isTrigger = true;
                 if (i < 3) {
-                    tile.GetComponent<Renderer>().material.color = Color.red;
                     tile.tag = "White Territory";
                 }
                 else if (i > 5) {
-                    tile.GetComponent<Renderer>().material.color = Color.blue;
                     tile.tag = "Black Territory";
                 }
                 Tile tileScript = tile.GetComponent<Tile>();
